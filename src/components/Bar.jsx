@@ -1,5 +1,5 @@
 import React from 'react'
-import './../styles/style.css'
+
 
 const Bar = () => {
   return (
@@ -17,13 +17,13 @@ const Bar = () => {
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Python</a>
                     <ul className="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="/python">Exploring</a>
+                            <a href="/python/exploring">Exploring</a>
                         </li>
                         <li>
-                            <a href="/python">Filtering</a>
+                            <a href="/python/filtering">Filtering</a>
                         </li>
                         <li>
-                            <a href="/python">Time series</a>
+                            <a href="/python/timeSeries">Time series</a>
                         </li>
                     </ul>
                 </li>
