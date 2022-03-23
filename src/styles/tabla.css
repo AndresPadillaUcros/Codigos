@@ -1,0 +1,18 @@
+.tabla-css{
+    margin:auto;
+    overflow-y:scroll;
+    width:90%;
+
+}
+
+.tabla-mui{
+    margin:auto;
+    width:50%;
+    
+}
+
+pre{
+    white-space: pre-wrap;
+    font-size:16px ;
+    font-family: 'Poppins', sans-serif;
+}
