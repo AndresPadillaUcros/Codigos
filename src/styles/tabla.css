@@ -16,3 +16,13 @@ pre{
     font-size:16px ;
     font-family: 'Poppins', sans-serif;
 }
+
+.fa-pen:hover {
+    color: blue !important;
+    transform: scale(1.5);
+}
+
+.fa-trash:hover {
+    color: red !important;
+    transform: scale(1.5);
+}

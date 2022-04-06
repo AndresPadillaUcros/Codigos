@@ -6,7 +6,7 @@ import {Table,Button,Container,Modal,ModalBody,ModalHeader,ModalFooter,FormGroup
 
 import { GET_CODIGOS } from '../../graphql/python/queries.ts';
 import { CREAR_CODIGO, EDITAR_CODIGO, ELIMINAR_CODIGO } from '../../graphql/python/mutations.ts';
-
+import TextareaAutosize from 'react-textarea-autosize';
 
 const PythonFiltering = () => {
 
@@ -85,8 +85,10 @@ const PythonFiltering = () => {
   return (
     <div>
         <h1 className='text-center'>Codigos de python </h1>
-        <Button color='primary' onClick={()=>abrirModalInsertar()}> Insertar nuevo codigo</Button>
-        <table className="table table-striped table-bordered table-hover table-sm tabla-css">
+        <div className='d-flex justify-content-center mt-3'>
+            <Button color='primary' onClick={()=>abrirModalInsertar()}> Insertar nuevo codigo</Button>
+        </div>
+        <table className="table table-striped table-bordered table-hover table-sm tabla-css mt-3">
           <thead>
             <tr className='table-primary'>
               <th>Clave</th>
@@ -100,7 +102,7 @@ const PythonFiltering = () => {
                     return(
                     <tr key={u._id} className='table-light'>
                         <td>{u.clave}</td>
-                        <td>{u.descripcion}</td>
+                        <td><pre>{u.descripcion}</pre></td>
                         <td><pre>{u.codigo}</pre></td>
                         <td>
                             <button className='btn btn-primary' onClick={()=> seleccionarDato(u,'Editar')}>Editar</button> 
@@ -112,7 +114,7 @@ const PythonFiltering = () => {
           </tbody>
         </table>
 
-        <Modal isOpen={modalEditar}>
+        <Modal isOpen={modalEditar} size ="lg" style={{maxWidth: '1000px', width: '100%'}}>
               <ModalHeader>
                   <div>
                       <h3>Editar codigo</h3>
@@ -131,7 +133,7 @@ const PythonFiltering = () => {
                     />
 
                     <label>Descripcion</label>
-                    <input
+                    <TextareaAutosize 
                         className='form-control'
                         type="text"
                         name="descripcion"
@@ -140,7 +142,7 @@ const PythonFiltering = () => {
                     />
 
                     <label>Codigo</label>
-                    <input
+                    <TextareaAutosize 
                         className='form-control'
                         type="text"
                         name="codigo"
@@ -155,7 +157,7 @@ const PythonFiltering = () => {
               </ModalFooter>
         </Modal>
         
-        <Modal isOpen={modalEliminar}>
+        <Modal isOpen={modalEliminar} >
             <ModalBody>
               Confirmar eliminacion?
             </ModalBody>
@@ -165,7 +167,7 @@ const PythonFiltering = () => {
             </ModalFooter>
         </Modal>
 
-        <Modal isOpen={modalInsertar}>
+        <Modal isOpen={modalInsertar} size ="lg" style={{maxWidth: '1000px', width: '100%'}}>
             <ModalHeader>
               Insertar Codigo
             </ModalHeader>
