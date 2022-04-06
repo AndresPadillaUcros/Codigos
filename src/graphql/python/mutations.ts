@@ -3,8 +3,8 @@ import {gql} from '@apollo/client'
 const EDITAR_CODIGO = gql`
     mutation EditarCodigo(
     $_id: String!, 
-    $clave: String!, 
-    $descripcion: String!, 
+    $clave: Enum_Clave!, 
+    $descripcion: String, 
     $codigo: String!
     ) {
         editarCodigo(
@@ -38,8 +38,8 @@ const ELIMINAR_CODIGO = gql`
 
 const CREAR_CODIGO = gql`
     mutation CrearCodigo(
-    $clave: String!, 
-    $descripcion: String!, 
+    $clave: Enum_Clave!, 
+    $descripcion: String, 
     $codigo: String!
     ) {
         crearCodigo(

@@ -17,6 +17,7 @@ import PythonTimeSeries from './pages/python/pythonTimeSeries';
 import './styles/tabla.css'
 import './styles/style.css'
 
+
 /* const client= new ApolloClient({
   uri:'https://innova1.herokuapp.com/graphql',
   cache:new InMemoryCache(),
