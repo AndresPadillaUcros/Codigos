@@ -1,11 +1,9 @@
 import {gql} from '@apollo/client'
 
 const GET_CODIGOS= gql`
-    query GetCodigos($filtro: FiltroCodigos) {
-    getCodigos(filtro: $filtro) {
+    query GetCodigosGithub {
+    getCodigosGithub {
         _id
-        clave
-        tipo
         descripcion
         codigo
     }

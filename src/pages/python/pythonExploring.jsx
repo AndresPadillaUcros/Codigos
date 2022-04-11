@@ -16,27 +16,7 @@ const PythonExploring = () => {
 
   const{form, formData,updateFormData} = useFormData(null);
 
-  function useCodigoFilters(){
-    const[filters,setFilter]=useState({
-      clave:undefined
-    })
-
-    const updateFilter=(filterType,value)=>{
-      setFilter({
-        [filterType]:value,
-      });
-      console.log(value)
-    }
-
-    return{
-      models:{filters},
-      operations:{updateFilter}
-    }
-  }
-
-  const {operations,models}=useCodigoFilters()
-
-  const {data,loading,refetch}=useQuery(GET_CODIGOS, {variables:{filtro:{clave:"String"}}})
+  const {data,loading,refetch}=useQuery(GET_CODIGOS)
 
   const [editarCodigo, {data:mutationDataEditar, loading:mutationLoadingEditar, error:mutationErrorEditar}] = useMutation(EDITAR_CODIGO,
     {refetchQueries:[{query:GET_CODIGOS} ] } );
@@ -52,6 +32,7 @@ const PythonExploring = () => {
   const[modalEliminar,setModalEliminar]=useState(false)
   const[modalInsertar,setModalInsertar]=useState(false)
   const[datoSeleccionado,setDatoSeleccionado]=useState({ })
+  const[dropDownOption, setdropDownOption] = useState();
 
   const seleccionarDato=(elemento,caso)=>{
       setDatoSeleccionado(elemento);
@@ -74,65 +55,65 @@ const PythonExploring = () => {
         variables:{...formData}
     })
     setModalInsertar(false)
+    console.log('dropDownOption is',dropDownOption)
+    refetch({ filtro: { clave: dropDownOption}})
+
 };
 
   const confirmarEliminacion=()=>{
     eliminarCodigo({variables:{_id:datoSeleccionado._id}})  
     setModalEliminar(false)
+    refetch({ filtro: { clave: dropDownOption}})
 }
 
   const abrirModalInsertar=()=>{
     setDatoSeleccionado(null)
     setModalInsertar(true)
+  
   }
- 
-if (loading) return <div> Cargando codigos...</div>
+
+  function changeDropBoxOption(e) {
+    refetch({ filtro: { clave: e.target.value }})
+    setdropDownOption(e.target.value);
+  }
 
 
-/* const newData=data.getCodigos.find((a)=>a.clave=='Exploring')
+  if (loading) return <div> Cargando codigos...</div>
 
-console.log('la data filtrada es ',newData)
-
-if(!newData){
-  newData=data
-} */
 
   return (
     <div>
         <h1 className='text-center'>Codigos de python </h1>
+
         <div className='d-flex justify-content-center mt-3'>
           <Button color='primary' onClick={()=>abrirModalInsertar()}> Insertar nuevo codigo</Button>
         </div>
-        <div onChange={(e)=>operations.updateFilter("clave", e.target.value)} type='String'>
+        <div onChange={changeDropBoxOption}>
           <DropDown
                 label='Tipo de codigo:'
                 name='estado'
-                defaultValue={1}
                 required={true}
                 options={Enum_Clave}
           />
-          <button onClick={() => refetch({ filtro: { clave: models.filters.clave },}) }>
-            Go
-          </button>
         </div>
 
         <table className="table table-striped table-bordered table-hover table-sm tabla-css mt-3">
           <thead>
             <tr className='table-primary'>
-              <th>Clave</th>
+              <th>Tipo</th>
               <th>Descripcion</th>
               <th>Codigo</th>
-              <th>Acciones</th>
+              <th> </th>
             </tr>
           </thead>
           <tbody>
                 {data.getCodigos.map((u)=> {
                     return(
                     <tr key={u._id} className='table-light'>
-                        <td>{u.clave}</td>
-                        <td><pre>{u.descripcion}</pre></td>
-                        <td><pre>{u.codigo}</pre></td>
-                        <td>
+                        <td width="25%">{u.tipo}</td>
+                        <td width="35%"><pre>{u.descripcion}</pre></td>
+                        <td width="35%"><pre>{u.codigo}</pre></td>
+                        <td width="5%">
                           <Tooltip title='Editar'>
                             <i className='fas fa-pen text-warning cursor-pointer' role="button" onClick={()=> seleccionarDato(u,'Editar')} />
                           </Tooltip>
@@ -177,8 +158,14 @@ if(!newData){
                             );
                           })}
                       </select>
+                      <label>Tipo</label>
+                      <TextareaAutosize 
+                          className='form-control'
+                          type="text"
+                          name="tipo"
+                          defaultValue={datoSeleccionado && datoSeleccionado.tipo}
+                      />
                       
-
                       <label>Descripcion</label>
                       <TextareaAutosize 
                           className='form-control'
@@ -226,7 +213,7 @@ if(!newData){
                       <select
                           name="clave"
                           className='form-select'
-                          defaultValue={datoSeleccionado && datoSeleccionado.clave}
+                          defaultValue={dropDownOption}
                       >
                           {Object.entries(Enum_Clave).map((o) => {
                             return (
@@ -236,6 +223,13 @@ if(!newData){
                             );
                           })}
                       </select>
+
+                      <label>Tipo</label>
+                      <TextareaAutosize 
+                          className='form-control'
+                          type="text"
+                          name="tipo"
+                      />
 
                       <label>Descripcion</label>
                       <TextareaAutosize 
