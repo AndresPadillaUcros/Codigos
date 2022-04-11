@@ -6,11 +6,15 @@ const Desarrollo = () => {
 
   const tabContent =[
     {
-      title:"Chennai",
-      content:"fdfd"
+      title:"GraphQl apollo",
+      content: `gfgfg
+                fgf
+                dfdf
+                
+                `
     },
     {
-      title:"Chennai",
+      title:"Prisma",
       content:"asrfafaf"
     },
     {
