@@ -3,9 +3,9 @@ import React from 'react'
 
 const Bar = () => {
   return (
-    <div className="d-flex flex-column flex-md-row flex-nowrap"> 
+    <div className="d-flex flex-column h-100 flex-md-row flex-nowrap "> 
  
-        <nav id="sidebar" className='vh-100'>
+        <nav id="sidebar" className='vh-100 '>
             <div className="sidebar-header">
                 <h3>Andres</h3>
             </div>
@@ -13,19 +13,8 @@ const Bar = () => {
             <ul className="list-unstyled components">
                 <p> </p>
 
-                <li className="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Python</a>
-                    <ul className="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="/python/exploring">Exploring</a>
-                        </li>
-                        <li>
-                            <a href="/python/filtering">Filtering</a>
-                        </li>
-                        <li>
-                            <a href="/python/timeSeries">Time series</a>
-                        </li>
-                    </ul>
+                <li>
+                    <a href="/python">Python</a>
                 </li>
 
                 <li>
@@ -51,8 +40,21 @@ const Bar = () => {
 
             </ul>
 
-        </nav>     
+        </nav>   
+        
+        <div >
+                <div >
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+        </div>
+
+
     </div>
+
+
+    
 
   )
 }

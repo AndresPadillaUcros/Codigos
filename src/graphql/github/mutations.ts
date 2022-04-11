@@ -1,23 +1,17 @@
 import {gql} from '@apollo/client'
 
 const EDITAR_CODIGO = gql`
-    mutation EditarCodigo(
+    mutation EditarCodigoGithub(
     $_id: String!, 
-    $clave: Enum_Clave!, 
-    $tipo:String!,
     $descripcion: String, 
     $codigo: String!
     ) {
-        editarCodigo(
+        editarCodigoGithub(
         _id: $_id, 
-        clave: $clave, 
-        tipo:$tipo,
         descripcion: $descripcion, 
         codigo: $codigo
         ) {
         _id
-        clave
-        tipo
         descripcion
         codigo
         }
@@ -25,15 +19,13 @@ const EDITAR_CODIGO = gql`
 `;
 
 const ELIMINAR_CODIGO = gql`
-    mutation EliminarCodigo(
+    mutation EliminarCodigoGithub(
     $_id: String
     ) {
-        eliminarCodigo(
+        eliminarCodigoGithub(
         _id: $_id
             ) {
             _id
-            clave
-            tipo
             descripcion
             codigo
     }
@@ -41,28 +33,20 @@ const ELIMINAR_CODIGO = gql`
 `;
 
 const CREAR_CODIGO = gql`
-    mutation CrearCodigo(
-    $clave: Enum_Clave!, 
-    $tipo: String,
-    $descripcion: String, 
+    mutation CrearCodigoGithub(
+    $descripcion: String!, 
     $codigo: String!
     ) {
-        crearCodigo(
-        clave: $clave, 
-        tipo:$tipo,
+        crearCodigoGithub(
         descripcion: $descripcion, 
         codigo: $codigo
         ) {
         _id
-        clave
-        tipo
         descripcion
         codigo
         }
     }
 `;
-
-
 
 
 export {EDITAR_CODIGO,ELIMINAR_CODIGO, CREAR_CODIGO  };

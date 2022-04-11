@@ -1,15 +1,15 @@
 .tabla-css{
     margin:auto;
     overflow-y:scroll;
-    width:90%;
+    width:95%;
 
 }
 
-.tabla-mui{
-    margin:auto;
-    width:50%;
-    
+.table td {
+  overflow:hidden;
+  word-wrap:break-word;
 }
+
 
 pre{
     white-space: pre-wrap;
