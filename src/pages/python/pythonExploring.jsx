@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import { useQuery,useMutation } from '@apollo/client';
 import {Table,Button,Container,Modal,ModalBody,ModalHeader,ModalFooter,FormGroup} from 'reactstrap'
 import useFormData from '../../hook/useFormData';
+import { Loading } from 'react-loading-dot'
 /* import 'react-toastify/dist/ReactToastify.css'; */
 import { GET_CODIGOS } from '../../graphql/python/queries.ts';
 import { CREAR_CODIGO, EDITAR_CODIGO, ELIMINAR_CODIGO } from '../../graphql/python/mutations.ts';
@@ -78,7 +79,7 @@ const PythonExploring = () => {
   }
 
 
-  if (loading) return <div> Cargando codigos...</div>
+  if (loading) return <div> <Loading background="blue" /></div>
 
 
   return (
