@@ -7,9 +7,8 @@ import {ApolloProvider, ApolloClient,createHttpLink,InMemoryCache} from "@apollo
 /* Components */
 import Layout from './layouts/Layout';
 import Desarrollo from './pages/desarrollo/desarrolloFront';
-import Github from './pages/github/github';
-import Proyectos from './pages/proyectos/proyectos';
-import PythonExploring from './pages/python/pythonExploring';
+import Github from './pages/github';
+import PythonExploring from './pages/python';
 import PythonFiltering from './pages/python/pythonFiltering';
 
 
@@ -41,7 +40,6 @@ function App() {
             <Route path='/python/filtering' element={<PythonFiltering/>} />
             <Route path='/desarrollo' element={<Desarrollo/>} />
             <Route path='/github' element={<Github/>} />
-            <Route path='/proyectos' element={<Proyectos/>} />
           </Route>
         </Routes>
       </BrowserRouter>
