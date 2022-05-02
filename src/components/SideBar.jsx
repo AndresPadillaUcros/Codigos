@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const Bar = () => {
+const SideBar = () => {
   return (
     <div className="d-flex flex-column h-100 flex-md-row flex-nowrap "> 
  
@@ -18,25 +18,9 @@ const Bar = () => {
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Desarrollo Web</a>
-                    <ul className="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="/desarrollo">Front</a>
-                        </li>
-                        <li>
-                            <a href="/desarrollo">Back</a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li>
                     <a href="/github">Github</a>
                 </li>
 
-                <li>
-                    <a href="/proyectos">Proyectos</a>
-                </li>
 
             </ul>
 
@@ -59,4 +43,4 @@ const Bar = () => {
   )
 }
 
-export default Bar
+export default SideBar
