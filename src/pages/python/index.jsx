@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useLayoutEffect} from 'react';
 import {Link} from 'react-router-dom'
 import { useQuery,useMutation } from '@apollo/client';
 import {Table,Button,Container,Modal,ModalBody,ModalHeader,ModalFooter,FormGroup} from 'reactstrap'
@@ -12,8 +12,16 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TextareaAutosize from 'react-textarea-autosize';
 import DropDown from '../../components/Dropdown.jsx'
 import { Enum_Clave } from '../../utils/enums';
+import {useUser} from '../../context/userContext';
 
 const PythonExploring = () => {
+
+  const {userData,setUserData} =useUser()
+
+  const clave=localStorage.getItem('contraseña')
+
+  console.log("PYTHON CLAVE",clave)
+  
 
   const{form, formData,updateFormData} = useFormData(null);
 
@@ -34,6 +42,7 @@ const PythonExploring = () => {
   const[modalInsertar,setModalInsertar]=useState(false)
   const[datoSeleccionado,setDatoSeleccionado]=useState({ })
   const[dropDownOption, setdropDownOption] = useState();
+  const [isButtondisabled, setIsButtonDisabled] = useState(true)
 
   const seleccionarDato=(elemento,caso)=>{
       setDatoSeleccionado(elemento);
@@ -77,6 +86,17 @@ const PythonExploring = () => {
     refetch({ filtro: { clave: e.target.value }})
     setdropDownOption(e.target.value);
   }
+
+  useEffect ( ()=>{
+        console.log(userData.clave)
+        if (clave===process.env.REACT_APP_CLAVE){
+
+          setIsButtonDisabled(false);
+        }else{
+
+          setIsButtonDisabled(true);
+        }
+  },[loading])
 
 
   if (loading) return <div> <Loading background="blue" /></div>
@@ -183,7 +203,7 @@ const PythonExploring = () => {
                           defaultValue={datoSeleccionado && datoSeleccionado.codigo}
                       />
                     </div>  
-                    <button className='btn btn-primary mr-2' type='submit'> Actualizar</button>
+                    <button id="boton-actualizar" className='btn btn-primary mr-2' type='submit' disabled={isButtondisabled}  > Actualizar</button>
                     <button className='btn btn-danger'type='button' onClick={()=>setModalEditar(false)}> Cancelar</button>
                 </form>
               </ModalBody>
@@ -194,7 +214,7 @@ const PythonExploring = () => {
                 Confirmar eliminacion?
               </ModalBody>
               <ModalFooter>
-                <button className="btn btn-danger" onClick={()=>confirmarEliminacion()}> Si </button>
+                <button className="btn btn-danger" onClick={()=>confirmarEliminacion() } disabled={isButtondisabled} > Si </button>
                 <button className="btn btn-secondary" onClick={()=>setModalEliminar(false)}> No </button>
               </ModalFooter>
         </Modal>
@@ -246,7 +266,7 @@ const PythonExploring = () => {
                           name="codigo"
                       />
                     </div>  
-                    <button className='btn btn-primary mr-2' type='submit'> Insertar</button>
+                    <button className='btn btn-primary mr-2' type='submit' > Insertar</button>
                     <button className='btn btn-danger'type='button' onClick={()=>setModalInsertar(false)}> Cancelar</button>
                 </form>
               </ModalBody>      

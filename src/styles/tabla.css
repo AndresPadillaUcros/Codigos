@@ -26,3 +26,9 @@ pre{
     color: red !important;
     transform: scale(1.5);
 }
+
+.color-accesso{
+    color:aqua;
+    font-size: 15px;
+    text-align: center;
+}

@@ -64,6 +64,7 @@ a, a:hover, a:focus {
     min-width: 250px;
     max-width: 250px;
     background: #7386D5;
+    opacity: 0.95;
     color: #fff;
     transition: all 0.3s;
 }

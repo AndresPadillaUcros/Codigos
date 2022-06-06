@@ -1,6 +1,6 @@
 /* Librerias */
 import React, { useState, useEffect } from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route,Navigate} from 'react-router-dom';
 import {ApolloProvider, ApolloClient,createHttpLink,InMemoryCache} from "@apollo/client";
 
 
@@ -16,6 +16,7 @@ import PythonFiltering from './pages/python/pythonFiltering';
 import './styles/tabla.css'
 import './styles/style.css'
 
+import { UserContext } from './context/userContext';
 
 const client= new ApolloClient({
   uri:'https://codigos-back.herokuapp.com/graphql',
@@ -31,18 +32,24 @@ const client= new ApolloClient({
 
 
 function App() {
+
+  const [userData, setUserData] = useState({});
+  
   return (
     <ApolloProvider client={client}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element ={<Layout />}>
-            <Route path='/python' element={<PythonExploring/>} />
-            <Route path='/python/filtering' element={<PythonFiltering/>} />
-            <Route path='/desarrollo' element={<Desarrollo/>} />
-            <Route path='/github' element={<Github/>} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <UserContext.Provider value={{ userData, setUserData }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element ={<Layout />}>
+              <Route path="/" element={<Navigate replace to="/python" />} />
+              <Route path='/python' element={<PythonExploring/>} /> 
+              <Route path='/python/filtering' element={<PythonFiltering/>} />
+              <Route path='/desarrollo' element={<Desarrollo/>} />
+              <Route path='/github' element={<Github/>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </UserContext.Provider>
     </ApolloProvider>
   );
 }

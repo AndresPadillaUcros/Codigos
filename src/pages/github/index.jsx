@@ -11,10 +11,16 @@ import { CREAR_CODIGO, EDITAR_CODIGO, ELIMINAR_CODIGO } from '../../graphql/gith
 
 import Tooltip from '@material-ui/core/Tooltip';
 import TextareaAutosize from 'react-textarea-autosize';
-
+import {useUser} from '../../context/userContext';
 
 
 const Github = () => {
+
+  const {userData,setUserData} =useUser()
+
+  const clave=localStorage.getItem('contraseña')
+
+  console.log("github CLAVE",clave)
 
   const{form, formData,updateFormData} = useFormData(null);
 
@@ -35,6 +41,7 @@ const Github = () => {
   const[modalInsertar,setModalInsertar]=useState(false)
   const[datoSeleccionado,setDatoSeleccionado]=useState({ })
   const[dropDownOption, setdropDownOption] = useState();
+  const [isButtondisabled, setIsButtonDisabled] = useState(true)
 
   const seleccionarDato=(elemento,caso)=>{
       setDatoSeleccionado(elemento);
@@ -43,7 +50,7 @@ const Github = () => {
 
   const submitFormEditar = (e)=>{
         e.preventDefault(); 
-        console.log("fg",formData)
+
         editarCodigo({
             variables:{_id:datoSeleccionado._id ,...formData}
         })
@@ -52,7 +59,7 @@ const Github = () => {
 
   const submitFormInsertar = (e)=>{
     e.preventDefault(); 
-    console.log("fg",formData)
+
     crearCodigo({
         variables:{...formData}
     })
@@ -79,10 +86,19 @@ const Github = () => {
     setdropDownOption(e.target.value);
   }
 
+  useEffect ( ()=>{
+
+    if (clave===process.env.REACT_APP_CLAVE){
+
+      setIsButtonDisabled(false);
+    }else{
+
+      setIsButtonDisabled(true);
+    }
+    },[loading])
 
   if (loading) return <div> <Loading background="blue"  /></div>
 
-  console.log(data.getCodigosGithub)
 
 
   return (
@@ -154,7 +170,7 @@ const Github = () => {
                           defaultValue={datoSeleccionado && datoSeleccionado.codigo}
                       />
                     </div>  
-                    <button className='btn btn-primary mr-2' type='submit'> Actualizar</button>
+                    <button className='btn btn-primary mr-2' type='submit'  disabled={isButtondisabled} > Actualizar</button>
                     <button className='btn btn-danger'type='button' onClick={()=>setModalEditar(false)}> Cancelar</button>
                 </form>
               </ModalBody>
@@ -165,7 +181,7 @@ const Github = () => {
                 Confirmar eliminacion?
               </ModalBody>
               <ModalFooter>
-                <button className="btn btn-danger" onClick={()=>confirmarEliminacion()}> Si </button>
+                <button className="btn btn-danger" onClick={()=>confirmarEliminacion()}  disabled={isButtondisabled} > Si </button>
                 <button className="btn btn-secondary" onClick={()=>setModalEliminar(false)}> No </button>
               </ModalFooter>
         </Modal>
