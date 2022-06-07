@@ -17,8 +17,11 @@ import {useUser} from '../../context/userContext';
 const PythonExploring = () => {
 
   const {userData,setUserData} =useUser()
+  
 
   const clave=localStorage.getItem('contraseña')
+
+
 
   console.log("PYTHON CLAVE",clave)
   
@@ -88,7 +91,7 @@ const PythonExploring = () => {
   }
 
   useEffect ( ()=>{
-        console.log(userData.clave)
+       
         if (clave===process.env.REACT_APP_CLAVE){
 
           setIsButtonDisabled(false);
@@ -96,7 +99,7 @@ const PythonExploring = () => {
 
           setIsButtonDisabled(true);
         }
-  },[loading])
+  },[loading,clave])
 
 
   if (loading) return <div> <Loading background="blue" /></div>

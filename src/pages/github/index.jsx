@@ -95,7 +95,7 @@ const Github = () => {
 
       setIsButtonDisabled(true);
     }
-    },[loading])
+    },[loading,clave])
 
   if (loading) return <div> <Loading background="blue"  /></div>
 
