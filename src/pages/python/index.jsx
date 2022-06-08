@@ -1,7 +1,6 @@
-import React, { useState, useEffect ,useLayoutEffect} from 'react';
-import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
 import { useQuery,useMutation } from '@apollo/client';
-import {Table,Button,Container,Modal,ModalBody,ModalHeader,ModalFooter,FormGroup} from 'reactstrap'
+import {Button,Modal,ModalBody,ModalHeader,ModalFooter} from 'reactstrap'
 import useFormData from '../../hook/useFormData';
 import { Loading } from 'react-loading-dot'
 /* import 'react-toastify/dist/ReactToastify.css'; */
@@ -12,19 +11,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TextareaAutosize from 'react-textarea-autosize';
 import DropDown from '../../components/Dropdown.jsx'
 import { Enum_Clave } from '../../utils/enums';
-import {useUser} from '../../context/userContext';
+
 
 const PythonExploring = () => {
 
-  const {userData,setUserData} =useUser()
+
   
 
   const clave=localStorage.getItem('contraseña')
-
-
-
-  console.log("PYTHON CLAVE",clave)
-  
 
   const{form, formData,updateFormData} = useFormData(null);
 
@@ -54,7 +48,6 @@ const PythonExploring = () => {
 
   const submitFormEditar = (e)=>{
         e.preventDefault(); 
-        console.log("fg",formData)
         editarCodigo({
             variables:{_id:datoSeleccionado._id ,...formData}
         })
@@ -63,12 +56,10 @@ const PythonExploring = () => {
 
   const submitFormInsertar = (e)=>{
     e.preventDefault(); 
-    console.log("fg",formData)
     crearCodigo({
         variables:{...formData}
     })
     setModalInsertar(false)
-    console.log('dropDownOption is',dropDownOption)
     refetch({ filtro: { clave: dropDownOption}})
 
 };
@@ -100,6 +91,7 @@ const PythonExploring = () => {
           setIsButtonDisabled(true);
         }
   },[loading,clave])
+
 
 
   if (loading) return <div> <Loading background="blue" /></div>

@@ -1,18 +1,40 @@
-import {useUser} from '../context/userContext';
 import React, { useState, useEffect } from 'react';
-import RenderIf
- from './RenderIf';
+import RenderIf from './RenderIf';
+import axios from 'axios';
+
+
 
 const SideBar = () => {
 
-    const {userData,setUserData} =useUser()
+    const [contraseña,setContraseña]=useState(null)
 
+    useEffect(()=>{
+        setContraseña(localStorage.getItem('contraseña'))
+    },[])
 
-    const Upload=(e)=>{
+    
+
+    const Upload=async(e)=>{
         e.preventDefault();
         const clave=e.target[0].value;
-        setUserData({clave:clave})    
+        
+        setContraseña(clave)
+        console.log(contraseña)
         localStorage.setItem('contraseña', clave)
+
+        /*         const options={
+                    method:'POST',
+                    url:'http://localhost:4000/password',
+                    headers:{'Content-Type':'application/json'},
+                    data:{contraseña:clave}
+                }
+
+                await axios.request(options).then(function(response){
+                    console.log(response.data)
+                })
+                    .catch(function(error){
+                        console.error(error)
+                    })    */
     }
 
     const ConAcceso =()=>{
@@ -22,9 +44,6 @@ const SideBar = () => {
     const ContraseñaIncorrecta=()=>{
         return <div className='color-accesso'> Contraseña incorrecta </div>
     }
-    
-    const clave =localStorage.getItem('contraseña')
-
     
 
 
@@ -51,15 +70,15 @@ const SideBar = () => {
                 Contraseña para editar:
                 <br /><br />
                 <form onSubmit={Upload} >
-                    <input type="text" name="clave" defaultValue={clave} />
+                    <input type="text" name="clave" defaultValue={contraseña} />
                     <input type="submit" value="Go"  /> 
                 </form>
      
-                <RenderIf isTrue={clave==process.env.REACT_APP_CLAVE }>
+                <RenderIf isTrue={contraseña==process.env.REACT_APP_CLAVE }>
                     <ConAcceso />
                 </RenderIf>
                 
-                <RenderIf isTrue={ (clave) && (clave!=process.env.REACT_APP_CLAVE) }>
+                <RenderIf isTrue={ (contraseña) && (contraseña!=process.env.REACT_APP_CLAVE) }>
                     <ContraseñaIncorrecta/>
                 </RenderIf>
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import {BrowserRouter, Routes, Route,Navigate} from 'react-router-dom';
 import {ApolloProvider, ApolloClient,createHttpLink,InMemoryCache} from "@apollo/client";
-
+import { setContext } from '@apollo/client/link/context';
 
 /* Components */
 import Layout from './layouts/Layout';
@@ -18,23 +18,44 @@ import './styles/style.css'
 
 import { UserContext } from './context/userContext';
 
-const client= new ApolloClient({
-  uri:'https://codigos-back.herokuapp.com/graphql',
-  cache:new InMemoryCache(),
-}); 
-
-/* const client= new ApolloClient({
-  uri:'http://localhost:4000/graphql',
-  cache:new InMemoryCache(),
-});   dsd*/
+const httpLink = createHttpLink({
+  uri: 'https://codigos-back.herokuapp.com/graphql',
+});
 
 
+/* 
+  uri:'http://localhost:4000/graphql'
+      'https://codigos-back.herokuapp.com/graphql'
+  
+*/
+
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('contraseña');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+
+const client = new ApolloClient({
+  
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+ 
+}) 
 
 
 function App() {
 
   const [userData, setUserData] = useState({});
-  
+ 
+
   return (
     <ApolloProvider client={client}>
       <UserContext.Provider value={{ userData, setUserData }}>
