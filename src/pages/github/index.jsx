@@ -103,7 +103,7 @@ const Github = () => {
 
 
   return (
-    <div>
+    <div className='espacio'>
         <h1 className='text-center'>Codigos de GitHub </h1>
 
         <div className='d-flex justify-content-center mt-3'>

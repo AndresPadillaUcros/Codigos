@@ -15,6 +15,7 @@ import PythonFiltering from './pages/python/pythonFiltering';
 /* Styles */
 import './styles/tabla.css'
 import './styles/style.css'
+import './styles/navbar.css'
 
 import { UserContext } from './context/userContext';
 

@@ -98,13 +98,13 @@ const PythonExploring = () => {
 
 
   return (
-    <div>
+    <div className='espacio'>
         <h1 className='text-center'>Codigos de python </h1>
 
         <div className='d-flex justify-content-center mt-3'>
           <Button color='primary' onClick={()=>abrirModalInsertar()}> Insertar nuevo codigo</Button>
         </div>
-        <div onChange={changeDropBoxOption}>
+        <div onChange={changeDropBoxOption} className='ml-5'>
           <DropDown
                 label='Tipo de codigo:'
                 name='estado'

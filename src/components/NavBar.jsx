@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RenderIf from './RenderIf';
-import axios from 'axios';
 
-
-
-const SideBar = () => {
+const NavBar = () => {
 
     const [contraseña,setContraseña]=useState(null)
 
@@ -38,41 +35,28 @@ const SideBar = () => {
     }
 
     const ConAcceso =()=>{
-        return <div className='color-accesso'> Tienes acceso para editar </div>
+        return <div className='color-accesso mt-0'> Tienes acceso para editar </div>
 
     }
     const ContraseñaIncorrecta=()=>{
-        return <div className='color-accesso'> Contraseña incorrecta </div>
+        return <div className='color-accesso mt-0'> Contraseña incorrecta </div>
     }
     
 
-
   return (
-    <div className="d-flex flex-column h-100 flex-md-row flex-nowrap "> 
- 
-        <nav id="sidebar" className='vh-100 '>
-            <div className="sidebar-header">
-                <h3>Andres</h3>
-            </div>
-
-            <ul className="list-unstyled components">
-                <p> </p>
-
-                <li>
-                    <a href="/python">Python</a>
-                </li>
-
-                <li>
-                    <a href="/github">Github</a>
-                </li>
-            </ul>
-            <div>
-                Contraseña para editar:
-                <br /><br />
-                <form onSubmit={Upload} >
-                    <input type="text" name="clave" defaultValue={contraseña} />
-                    <input type="submit" value="Go"  /> 
-                </form>
+    <>
+      <header className='header'>
+        <nav className='my-navbar'>
+          <span  className='logo navbar-link'>Andres Padilla</span>
+          <div>
+                <div className='d-flex flex-row pt-2'>
+                    Contraseña para editar: 
+                    <br /><br />
+                    <form onSubmit={Upload} className='ml-3'>
+                        <input type="text" name="clave" defaultValue={contraseña} />
+                        <input type="submit" value="Go"  /> 
+                    </form>
+                </div>
      
                 <RenderIf isTrue={contraseña==process.env.REACT_APP_CLAVE }>
                     <ConAcceso />
@@ -82,23 +66,28 @@ const SideBar = () => {
                     <ContraseñaIncorrecta/>
                 </RenderIf>
             </div>
-        </nav>   
-        
-        <div >
-                <div >
-                    <button type="button" id="sidebarCollapse" className="btn btn-info">
-                        <i className="fas fa-arrow-left"></i>
-                    </button>
-                </div>
-        </div>
 
 
-    </div>
+          <ul className='navbar-menu'>
+            <li className='navbar-menu-item'>
+              <a href="/python" data-offset="100" className='navbar-menu-link navbar-link'>Python</a>
+            </li>
+            <li className='navbar-menu-item'>
+              <a href="/github" className='navbar-menu-link navbar-link'>Github</a>
+            </li>
 
 
+          </ul>
+
+        </nav>
+      </header>
     
+    </>
+
+
 
   )
 }
 
-export default SideBar
+
+export default NavBar
